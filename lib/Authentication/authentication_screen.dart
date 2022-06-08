@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:funky_project/controller/controllers_class.dart';
+import 'package:funky_new/controller/controllers_class.dart';
+import 'package:funky_new/guest_screen/ui/guest_screen.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:funky_new/custom_widget/common_buttons.dart';
 
 import '../Utils/asset_utils.dart';
-import '../custom_widget/common_buttons.dart';
 import '../getx_pagination/binding_utils.dart';
-import '../guest_screen/ui/guest_screen.dart';
 
 class AuthenticationScreen extends StatefulWidget {
   const AuthenticationScreen({Key? key}) : super(key: key);
@@ -176,4 +176,5 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
       },
     );
   }
+
 }

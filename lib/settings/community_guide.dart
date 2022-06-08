@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:funky_project/Utils/asset_utils.dart';
 
 class CommunityGuide extends StatefulWidget {
   const CommunityGuide({Key? key}) : super(key: key);
@@ -17,7 +16,7 @@ class _CommunityGuideState extends State<CommunityGuide> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         title: Text(
-          'Community guidelines',
+          'Community Guide',
           style: TextStyle(fontSize: 16, color: Colors.white, fontFamily: 'PB'),
         ),
         centerTitle: true,
@@ -39,7 +38,7 @@ class _CommunityGuideState extends State<CommunityGuide> {
       ),
       body: SingleChildScrollView(
         child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 24),
+          margin: EdgeInsets.symmetric(horizontal: 41),
           child: Column(
             children: [
               Container(
@@ -48,18 +47,6 @@ class _CommunityGuideState extends State<CommunityGuide> {
                   textAlign: TextAlign.justify,
                   style: TextStyle(
                       fontSize: 14, color: Colors.white, fontFamily: 'PR'),
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.symmetric(vertical: 20),
-                height: 200,
-                width: MediaQuery.of(context).size.width,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
-                  child: Image.asset(
-                      AssetUtils.image4,
-                      fit: BoxFit.fitWidth,
-                    ),
                 ),
               ),
               Container(

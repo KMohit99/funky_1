@@ -1,10 +1,12 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:funky_project/Utils/asset_utils.dart';
-import 'package:funky_project/Utils/colorUtils.dart';
+// import 'package:funky_project/Utils/asset_utils.dart';
+// import 'package:funky_project/Utils/colorUtils.dart';
 import 'package:hexcolor/hexcolor.dart';
 
+import '../../../Utils/asset_utils.dart';
+import '../../../Utils/colorUtils.dart';
 class KidsAccountDetails extends StatefulWidget {
   const KidsAccountDetails({Key? key}) : super(key: key);
 

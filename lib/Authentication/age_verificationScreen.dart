@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:funky_project/Utils/asset_utils.dart';
-import 'package:funky_project/controller/controllers_class.dart';
+// import 'package:funky_project/Utils/asset_utils.dart';
+// import 'package:funky_project/controller/controllers_class.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
+import '../Utils/asset_utils.dart';
+import '../controller/controllers_class.dart';
 import '../custom_widget/common_buttons.dart';
 import '../getx_pagination/binding_utils.dart';
 

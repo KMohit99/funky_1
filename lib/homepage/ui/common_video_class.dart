@@ -2,11 +2,13 @@ import 'dart:async';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:funky_project/Utils/colorUtils.dart';
+
+// import 'package:funky_project/Utils/colorUtils.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:video_player/video_player.dart';
 
 import '../../Utils/asset_utils.dart';
+import '../../Utils/colorUtils.dart';
 import '../../custom_widget/common_buttons.dart';
 
 class VideoWidget extends StatefulWidget {
@@ -14,17 +16,16 @@ class VideoWidget extends StatefulWidget {
   final String singerName;
   final String songName;
   final String url;
+  final String image_url;
 
-
-
-  const VideoWidget(
-      {Key? key,
-      required this.url,
-      required this.play,
-      required this.singerName,
-      required this.songName,
-    })
-      : super(key: key);
+  const VideoWidget({
+    Key? key,
+    required this.url,
+    required this.play,
+    required this.singerName,
+    required this.songName,
+    required this.image_url,
+  }) : super(key: key);
 
   @override
   _VideoWidgetState createState() => _VideoWidgetState();
@@ -40,7 +41,9 @@ class _VideoWidgetState extends State<VideoWidget> {
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.network("http://foxyserver.com/funky/video/${widget.url}");
+    print('image urlllllllllllll ${widget.url}');
+    _controller = VideoPlayerController.network(
+        "http://foxyserver.com/funky/video/${widget.url}");
 
     _controller!.setLooping(true);
     _controller!.initialize().then((_) {
@@ -52,10 +55,8 @@ class _VideoWidgetState extends State<VideoWidget> {
   @override
   void dispose() {
     // _timer?.cancel();
-
     super.dispose();
     _controller!.dispose();
-
   }
 
   int _currentPage = 0;
@@ -128,8 +129,40 @@ class _VideoWidgetState extends State<VideoWidget> {
           child: Stack(
             children: [
               _controller!.value.isInitialized
-                  ? VideoPlayer(_controller!)
+                  ?
+                  // Container(
+                  //       color: Colors.pink,
+                  //         height: MediaQuery.of(context).size.height,
+                  //         child: VideoPlayer(_controller!))
+
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height,
+                    child: Center(
+                        child: AspectRatio(
+                            aspectRatio: _controller!.value.aspectRatio,
+                            child: VideoPlayer(_controller!)),
+                      ),
+                  )
                   : Container(),
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.red,
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    // stops: [0.1, 0.5, 0.7, 0.9],
+                    colors: [
+                      HexColor("#000000"),
+                      HexColor("#000000").withOpacity(0.7),
+                      HexColor("#000000").withOpacity(0.3),
+                      Colors.transparent
+                    ],
+                  ),
+                ),
+                alignment: Alignment.topCenter,
+                height: MediaQuery.of(context).size.height/5,
+              ),
               Center(
                 child: Visibility(
                   visible: _onTouch,
@@ -169,24 +202,65 @@ class _VideoWidgetState extends State<VideoWidget> {
                           alignment: Alignment.centerLeft,
                           child: Container(
                               margin: const EdgeInsets.only(
-                                  left: 10.0, right: 60.0),
+                                  left: 0.0, right: 60.0),
                               child: Divider(
                                 color: HexColor('#F32E82'),
                                 height: 0,
                               )),
                         ),
+                        SizedBox(height: 10,),
                         ListTile(
-                          visualDensity: VisualDensity(vertical: -4),
+                          visualDensity:
+                              VisualDensity(vertical: -4, horizontal: -4),
                           // tileColor: Colors.white,
                           title: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
-                                widget.singerName,
-                                style: TextStyle(
-                                    color: HexColor('#D4D4D4'),
-                                    fontFamily: "PR",
-                                    fontSize: 14),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  (widget.image_url.length > 0
+                                      ? ClipRRect(
+                                        borderRadius: BorderRadius.circular(50),
+                                        child: Container(
+                                          height: 50,width: 50,
+                                          color: Colors.red,
+                                          child: Image.network(
+                                            "${widget.image_url}",
+                                          ),
+                                        ),
+                                      )
+                                      : Container(
+                                          height: 50,
+                                          width: 50,
+                                          child: IconButton(
+                                            icon: Image.asset(
+                                              AssetUtils.user_icon3,
+                                              fit: BoxFit.fill,
+                                            ),
+                                            onPressed: () {},
+                                          ))),
+                                  SizedBox(width: 15,),
+                                  Column(
+                                    children: [
+                                      Text(
+                                        widget.singerName,
+                                        style: TextStyle(
+                                            color: HexColor('#D4D4D4'),
+                                            fontFamily: "PR",
+                                            fontSize: 14),
+                                      ),
+                                      Text(
+                                        'Original Audio',
+                                        style: TextStyle(
+                                            color:
+                                                HexColor(CommonColor.pinkFont),
+                                            fontFamily: "PR",
+                                            fontSize: 10),
+                                      ),
+                                    ],
+                                  ),
+                                ],
                               ),
                               Row(
                                 children: [
@@ -211,13 +285,6 @@ class _VideoWidgetState extends State<VideoWidget> {
                               ),
                             ],
                           ),
-                          subtitle: Text(
-                            'Original Audio',
-                            style: TextStyle(
-                                color: HexColor(CommonColor.pinkFont),
-                                fontFamily: "PR",
-                                fontSize: 10),
-                          ),
                           trailing: SizedBox.shrink(),
                         ),
                       ],
@@ -239,17 +306,14 @@ class _VideoWidgetState extends State<VideoWidget> {
                       children: [
                         Container(
                           child: IconButton(
-                            padding: EdgeInsets.only(left: 28.0),
-                            icon: Image.asset(
-                              AssetUtils.like_icon,
-                              color: Colors.white,
-                              height: 30,
-                              width: 30,
-                            ),
-                            onPressed: (){
-
-                            }
-                          ),
+                              padding: EdgeInsets.only(left: 28.0),
+                              icon: Image.asset(
+                                AssetUtils.like_icon,
+                                color: Colors.white,
+                                height: 30,
+                                width: 30,
+                              ),
+                              onPressed: () {}),
                         ),
                         Container(
                           child: IconButton(

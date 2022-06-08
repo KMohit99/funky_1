@@ -3,11 +3,13 @@ import 'dart:async';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:funky_project/Utils/colorUtils.dart';
+import 'package:funky_new/Authentication/authentication_screen.dart';
+import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:video_player/video_player.dart';
 
 import '../../Utils/asset_utils.dart';
+import '../../Utils/colorUtils.dart';
 import '../../custom_widget/common_buttons.dart';
 
 class video_class extends StatefulWidget {
@@ -86,10 +88,14 @@ class _video_classState extends State<video_class> {
                 SizedBox(
                   height: 25,
                 ),
-                Text(
-                  "Sign up for more videos",
-                  style: TextStyle(
-                      color: Colors.white, fontFamily: "PR", fontSize: 14),
+                GestureDetector(
+                  onTap: (){
+                  },
+                  child: Text(
+                    "Sign up for more videos",
+                    style: TextStyle(
+                        color: Colors.white, fontFamily: "PR", fontSize: 14),
+                  ),
                 ),
               ],
             ),
@@ -99,6 +105,7 @@ class _video_classState extends State<video_class> {
               margin: EdgeInsets.only(bottom: 10, right: 35, left: 35),
               child: common_button(
                 onTap: () {
+                  Get.to(AuthenticationScreen());
                   // openCamera();
                   // Get.toNamed(BindingUtils.signupOption);
                 },

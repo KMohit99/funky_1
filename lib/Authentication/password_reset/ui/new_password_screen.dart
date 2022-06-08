@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:funky_project/Utils/toaster_widget.dart';
+// import 'package:funky_project/Utils/toaster_widget.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 import '../../../Utils/asset_utils.dart';
 import '../../../Utils/custom_textfeild.dart';
+import '../../../Utils/toaster_widget.dart';
 import '../../../custom_widget/common_buttons.dart';
 import '../controller/password_reset_controller.dart';
 

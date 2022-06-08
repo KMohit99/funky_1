@@ -2,9 +2,10 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
-import 'package:funky_project/Authentication/kids_login/controller/kids_login_controller.dart';
-import 'package:funky_project/Authentication/password_reset/ui/password_reset_otp_veri.dart';
-import 'package:funky_project/Utils/App_utils.dart';
+import 'package:funky_new/Authentication/password_reset/ui/password_reset_otp_veri.dart';
+// import 'package:funky_project/Authentication/kids_login_screen_login/controller/kids_login_controller.dart';
+// import 'package:funky_project/Authentication/password_reset/ui/password_reset_otp_veri.dart';
+// import 'package:funky_project/Utils/App_utils.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
@@ -12,6 +13,7 @@ import '../../../../Utils/asset_utils.dart';
 import '../../../../Utils/custom_textfeild.dart';
 import '../../../../custom_widget/common_buttons.dart';
 import '../../../../getx_pagination/binding_utils.dart';
+import '../../../Utils/App_utils.dart';
 import '../../../Utils/toaster_widget.dart';
 import '../controller/password_reset_controller.dart';
 
@@ -147,71 +149,82 @@ class _sendEmailState extends State<sendEmail> {
             ),
           ),
         ),
-        Scaffold(
-          resizeToAvoidBottomInset: false,
-          // extendBodyBehindAppBar: true,
-          appBar: AppBar(
-            centerTitle: true,
-            title: Text(
-              TxtUtils.forgot_password,
-              style: TextStyle(
-                  fontSize: 16, fontFamily: 'PB', color: Colors.white),
+        GestureDetector(
+          onTap: (){
+            FocusScope.of(context).requestFocus(FocusNode());
+
+          },
+          child: Scaffold(
+            resizeToAvoidBottomInset: false,
+            // extendBodyBehindAppBar: true,
+            appBar: AppBar(
+              centerTitle: true,
+              title: Text(
+                TxtUtils.forgot_password,
+                style: TextStyle(
+                    fontSize: 16, fontFamily: 'PB', color: Colors.white),
+              ),
+              backgroundColor: Colors.transparent,
             ),
             backgroundColor: Colors.transparent,
-          ),
-          backgroundColor: Colors.transparent,
-          body: Container(
-            width: screenwidth,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Container(
-                  // color: Colors.red,
-                  margin: EdgeInsets.symmetric(horizontal: 86, vertical: 10),
-                  child: Image.asset(
-                    AssetUtils.logo,
-                    fit: BoxFit.cover,
+            body: Container(
+              width: screenwidth,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Container(
+                    // color: Colors.red,
+                    margin: EdgeInsets.symmetric(horizontal: 86, vertical: 10),
+                    child: Image.asset(
+                      AssetUtils.logo,
+                      fit: BoxFit.cover,
+                    ),
                   ),
-                ),
-                Container(
-                  child: Text(
-                    'Enter Email',
-                    style: TextStyle(
-                        fontSize: 16, fontFamily: 'PB', color: Colors.white),
+                  Container(
+                    child: Text(
+                      'Enter Email',
+                      style: TextStyle(
+                          fontSize: 16, fontFamily: 'PB', color: Colors.white),
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: 68,
-                ),
-                CommonTextFormField(
-                  controller: _password_reset_controller.email_controller,
-                  title: TxtUtils.Email,
-                  labelText: TxtUtils.Email,
-                  // keyboardType: TextInputType.number,
-                  image_path: AssetUtils.chat_icon,
-                ),
-                SizedBox(
-                  height: 76,
-                ),
-                common_button(
-                  onTap: () async {
-                    if(_password_reset_controller.email_controller.text.isEmpty){
-                      CommonWidget().showErrorToaster(msg: "Enter valid Email");
-                    }else{
-                      await _password_reset_controller.pass_reset_SendOtp(context);
-                      displayBottomSheet(context);
-                    }
-                  },
-                  backgroud_color: Colors.black,
-                  lable_text: 'Next',
-                  lable_text_color: Colors.white,
-                ),
-              ],
+                  SizedBox(
+                    height: 68,
+                  ),
+                  CommonTextFormField(
+                    controller: _password_reset_controller.email_controller,
+                    title: TxtUtils.Email,
+                    labelText: TxtUtils.Email,
+                    // keyboardType: TextInputType.number,
+                    image_path: AssetUtils.chat_icon,
+                  ),
+                  SizedBox(
+                    height: 76,
+                  ),
+                  common_button(
+                    onTap: () async {
+                      if(_password_reset_controller.email_controller.text.isEmpty){
+                        CommonWidget().showErrorToaster(msg: "Enter valid Email");
+                      }
+                      else{
+                        await _password_reset_controller.pass_reset_SendOtp(context);
+                        if(_password_reset_controller.Forgot_passwordModel!.error! == true){
+                          CommonWidget().showErrorToaster(msg: "Enter valid Email");
+                        }
+                        displayBottomSheet(context);
+                      }
+                    },
+                    backgroud_color: Colors.black,
+                    lable_text: 'Next',
+                    lable_text_color: Colors.white,
+                  ),
+                ],
+              ),
             ),
           ),
         )
       ],
     );
   }
+
 }

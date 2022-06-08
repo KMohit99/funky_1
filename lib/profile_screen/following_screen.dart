@@ -2,7 +2,7 @@ import 'dart:convert' as convert;
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:funky_project/Utils/colorUtils.dart';
+// import 'package:funky_project/Utils/colorUtils.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:http/http.dart' as http;
@@ -276,45 +276,6 @@ class _FollowingScreenState extends State<FollowingScreen> {
 
     setState(() => this.FollowingData = books);
     print(FollowingData.length);
-    // id = await PreferenceManager().getPref(URLConstants.id);
-    // print("id $id");
-    //
-    // isfollowersLoading(true);
-    // String url = (URLConstants.base_url + URLConstants.FollowersListApi + '?id=$id');
-    //
-    // // debugPrint('Get Sales Token ${tokens.toString()}');
-    // // try {
-    // // } catch (e) {
-    // //   print('1-1-1-1 Get Purchase ${e.toString()}');
-    // // }
-    //
-    // http.Response response = await http.get(Uri.parse(url));
-    //
-    // print('Response request: ${response.request}');
-    // print('Response status: ${response.statusCode}');
-    // print('Response body: ${response.body}');
-    //
-    // if (response.statusCode == 200 || response.statusCode == 201) {
-    //   var data = convert.jsonDecode(response.body);
-    //   followersModel = FollowersModel.fromJson(data);
-    //   getFollowersModelList(followersModel);
-    //   if (followersModel!.error == false) {
-    //     debugPrint(
-    //         '2-2-2-2-2-2 Inside the Followers Controller Details ${followersModel!.data!.length}');
-    //     isfollowersLoading(false);
-    //     // CommonWidget().showToaster(msg: data["success"].toString());
-    //     return followersModel;
-    //   } else {
-    //     // CommonWidget().showToaster(msg: msg.toString());
-    //     return null;
-    //   }
-    // } else if (response.statusCode == 422) {
-    //   // CommonWidget().showToaster(msg: msg.toString());
-    // } else if (response.statusCode == 401) {
-    //   // CommonService().unAuthorizedUser();
-    // } else {
-    //   // CommonWidget().showToaster(msg: msg.toString());
-    // }
   }
 
   Future Following_list_search_API(String query) async {

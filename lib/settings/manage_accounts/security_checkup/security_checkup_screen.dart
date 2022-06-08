@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:funky_project/Utils/asset_utils.dart';
-import 'package:funky_project/Utils/colorUtils.dart';
-import 'package:funky_project/settings/manage_accounts/security_checkup/phone_number_verification.dart';
+import 'package:funky_new/settings/manage_accounts/security_checkup/phone_number_verification.dart';
+
+import '../../../Utils/asset_utils.dart';
+import '../../../Utils/colorUtils.dart';
+// import 'package:funky_project/settings/manage_accounts/security_checkup/phone_number_verification.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 

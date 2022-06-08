@@ -5,7 +5,7 @@ import 'dart:io';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:funky_project/Authentication/creator_signup/model/countryModelclass.dart';
+// import 'package:funky_project/Authentication/creator_signup/model/countryModelclass.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:image_picker/image_picker.dart';
@@ -14,6 +14,7 @@ import '../../../Utils/App_utils.dart';
 import '../../../Utils/asset_utils.dart';
 import '../../../Utils/custom_textfeild.dart';
 import '../../../custom_widget/common_buttons.dart';
+import '../../creator_signup/model/countryModelclass.dart';
 import '../../kids_signup/controller/kids_signup_controller.dart';
 import '../controller/advertiser_signup_controller.dart';
 

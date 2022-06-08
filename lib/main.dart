@@ -1,24 +1,19 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:funky_project/Authentication/authentication_screen.dart';
-import 'package:funky_project/Authentication/creator_login/ui/Creator_login_screen.dart';
-import 'package:funky_project/splash_screen.dart';
 import 'package:get/get.dart';
+import 'package:get/get.dart';
+import 'package:funky_new/splash_screen.dart';
 
 import 'getx_pagination/Bindings_class.dart';
 import 'getx_pagination/binding_utils.dart';
 import 'getx_pagination/page_route.dart';
-
 Future<void> main() async{
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  // WidgetsFlutterBinding.ensureInitialized();
+  // await Firebase.initializeApp();
   // FirebaseAppCheck.getInstance().installAppCheckProviderFactory(
   //     PlayIntegrityAppCheckProviderFactory.getInstance())
   runApp(MyApp());
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    systemNavigationBarColor: Colors.black,
-  ));
+
 }
 
 class MyApp extends StatelessWidget {
@@ -50,6 +45,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Colors.yellow,
         dividerColor: Colors.transparent,
+        scaffoldBackgroundColor: Colors.white,
         backgroundColor: Colors.black,
         appBarTheme: AppBarTheme(
           backgroundColor: Colors.white,

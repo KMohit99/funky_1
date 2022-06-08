@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
-import 'package:funky_project/Utils/asset_utils.dart';
-import 'package:funky_project/Utils/colorUtils.dart';
+// import 'package:funky_project/Utils/asset_utils.dart';
+// import 'package:funky_project/Utils/colorUtils.dart';
 import 'package:hexcolor/hexcolor.dart';
+
+import '../Utils/colorUtils.dart';
 
 class Privacy_Settings extends StatefulWidget {
   const Privacy_Settings({Key? key}) : super(key: key);

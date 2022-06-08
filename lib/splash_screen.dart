@@ -4,10 +4,15 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'dart:async';
+
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'Utils/asset_utils.dart';
 import 'controller/controllers_class.dart';
 import 'getx_pagination/binding_utils.dart';
+
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);

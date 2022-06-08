@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:funky_project/settings/manage_accounts/comment_settings.dart';
-import 'package:funky_project/settings/manage_accounts/email_settings.dart';
-import 'package:funky_project/settings/manage_accounts/post_settings.dart';
-import 'package:funky_project/settings/manage_accounts/privacy_screen.dart';
-import 'package:funky_project/settings/manage_accounts/request_verification.dart';
-import 'package:funky_project/settings/manage_accounts/security_checkup/security_checkup_screen.dart';
-import 'package:funky_project/settings/manage_accounts/terms_services.dart';
+import 'package:funky_new/settings/manage_accounts/post_settings.dart';
+import 'package:funky_new/settings/manage_accounts/privacy_screen.dart';
+import 'package:funky_new/settings/manage_accounts/request_verification.dart';
+import 'package:funky_new/settings/manage_accounts/security_checkup/security_checkup_screen.dart';
+import 'package:funky_new/settings/manage_accounts/terms_services.dart';
+
+import '../../../Utils/asset_utils.dart';
+import '../../../Utils/colorUtils.dart';
 import 'package:get/get.dart';
 
 import '../../Authentication/authentication_screen.dart';
 import '../../Utils/asset_utils.dart';
 import '../blockList_screen.dart';
+import 'comment_settings.dart';
+import 'email_settings.dart';
 import 'email_sms.dart';
 
 class ManageAccount extends StatefulWidget {
@@ -110,9 +113,9 @@ class _ManageAccountState extends State<ManageAccount> {
                                                             ? Get.to(
                                                                 Temrs_servicesScreen())
                                                             : (index == 5
-                        ? Get.to(
-                        SecurityCheckup())
-                        : null)))))))))));
+                                                                ? Get.to(
+                                                                    SecurityCheckup())
+                                                                : null)))))))))));
                   },
                   child: ListTile(
                     leading: IconButton(

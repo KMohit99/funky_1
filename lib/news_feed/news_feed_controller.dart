@@ -13,7 +13,6 @@ class NewsFeed_screen_controller extends GetxController {
   RxBool isVideoLoading = false.obs;
   NewsFeedModel? newsfeedModel;
   var getVideoModelList = NewsFeedModel().obs;
-
   Future<dynamic> getAllNewsFeedList() async {
     String id_user = await PreferenceManager().getPref(URLConstants.id);
 

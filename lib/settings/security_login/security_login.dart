@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:funky_project/settings/security_login/saved_login_info.dart';
+import 'package:funky_new/settings/security_login/saved_login_info.dart';
+// import 'package:funky_project/settings/security_login/saved_login_info.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 

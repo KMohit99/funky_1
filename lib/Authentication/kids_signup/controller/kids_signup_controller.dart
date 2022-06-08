@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:funky_project/Authentication/kids_signup/ui/kids_otp_verification.dart';
+// import 'package:funky_project/Authentication/kids_signup/ui/kids_otp_verification.dart';
 import 'package:get/get.dart';
 import 'dart:convert';
 
@@ -12,8 +12,8 @@ import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
 import '../../../Utils/App_utils.dart';
 import '../../../Utils/toaster_widget.dart';
-import '../../../dashboard/ui/dashboard_screen.dart';
-import '../../../homepage/model/UserInfoModel.dart';
+// import '../../../homepage/model/UserInfoModel.dart';
+import '../../../dashboard/dashboard_screen.dart';
 import '../../creator_login/controller/creator_login_controller.dart';
 import '../../creator_login/model/creator_loginModel.dart';
 import 'package:http/http.dart' as http;
@@ -24,6 +24,8 @@ import '../../creator_signup/ui/creator_otp_verification.dart';
 import '../../kids_login/model/parents_otp_model.dart';
 import 'dart:convert' as convert;
 
+import '../ui/kids_otp_verification.dart';
+
 class Kids_signup_controller extends GetxController {
   bool isPasswordVisible = false;
 
@@ -31,6 +33,9 @@ class Kids_signup_controller extends GetxController {
     isPasswordVisible = value;
     update();
   }
+  final Creator_Login_screen_controller _creator_login_screen_controller =
+  Get.put(Creator_Login_screen_controller(),
+      tag: Creator_Login_screen_controller().toString());
 
   TextEditingController fullname_controller = new TextEditingController();
   TextEditingController username_controller = new TextEditingController();
@@ -65,7 +70,7 @@ class Kids_signup_controller extends GetxController {
       'gender': selected_gender,
       'location': selectedcountry!.location.toString(),
       'referral_code': reffralCode_controller.text,
-      'image': photoBase64!,
+      'image': img64!.substring(0, 100),
       'countryCode': countryCode_controller.text,
       'about': aboutMe_controller.text,
       'type': 'kids',
@@ -109,12 +114,13 @@ class Kids_signup_controller extends GetxController {
   RxBool isotpLoading = false.obs;
   parentsOtpModel? otpsendModel;
   String? photoBase64;
+  String? img64;
 
   Future<dynamic> KidsSendOtp(BuildContext context) async {
     debugPrint('0-0-0-0-0-0-0 username');
     isotpLoading(true);
     Map data = {
-      'email': email_controller.text,
+      'email': phone_controller.text,
     };
     print(data);
     // String body = json.encode(data);
@@ -198,9 +204,7 @@ class Kids_signup_controller extends GetxController {
     }
   }
 
-  final Creator_Login_screen_controller _creator_login_screen_controller =
-      Get.put(Creator_Login_screen_controller(),
-          tag: Creator_Login_screen_controller().toString());
+
 
   countryModel? countrymodelList;
   var getAllCountriesModelList = countryModel().obs;

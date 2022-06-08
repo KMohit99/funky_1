@@ -1,19 +1,22 @@
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
-import 'package:funky_project/Authentication/creator_login/controller/creator_login_controller.dart';
-import 'package:funky_project/loader/page_loader.dart';
-import 'package:funky_project/search_screen/searchModel.dart';
+import 'package:funky_new/custom_widget/page_loader.dart';
+import 'package:funky_new/search_screen/searchModel.dart';
+
+// import 'package:funky_project/Authentication/creator_login/controller/creator_login_controller.dart';
+// import 'package:funky_project/search_screen/searchModel.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 import '../Utils/App_utils.dart';
 import '../Utils/toaster_widget.dart';
-import '../dashboard/ui/dashboard_screen.dart';
+import '../dashboard/dashboard_screen.dart';
 import '../homepage/model/Homepage_model.dart';
 import 'dart:convert' as convert;
 
 import '../homepage/model/UserInfoModel.dart';
+import '../profile_screen/model/followUnfollowModel.dart';
 import '../profile_screen/model/followersModel.dart';
 import '../sharePreference.dart';
 
@@ -61,8 +64,7 @@ class Search_screen_controller extends GetxController {
       getVideoModelList(searchlistModel);
       if (searchlistModel!.error == false) {
         debugPrint(
-            '2-2-2-2-2-2 Inside the product Controller Details ${searchlistModel!
-                .data!.length}');
+            '2-2-2-2-2-2 Inside the product Controller Details ${searchlistModel!.data!.length}');
         isSearchLoading(false);
         // CommonWidget().showToaster(msg: data["success"].toString());
         return searchlistModel;
@@ -81,13 +83,13 @@ class Search_screen_controller extends GetxController {
 
   RxBool block_unblockLoading = false.obs;
 
-  Future<dynamic> Block_unblock_api(
-      {required BuildContext context,
-        required String user_id,
-        required String user_name,
-        required String social_bloc_type,
-        required String block_unblock,
-      }) async {
+  Future<dynamic> Block_unblock_api({
+    required BuildContext context,
+    required String user_id,
+    required String user_name,
+    required String social_bloc_type,
+    required String block_unblock,
+  }) async {
     debugPrint('0-0-0-0-0-0-0 username');
     block_unblockLoading(true);
     String id_user = await PreferenceManager().getPref(URLConstants.id);
@@ -127,7 +129,8 @@ class Search_screen_controller extends GetxController {
         block_unblockLoading(false);
 
         // await PreferenceManager()
-        CommonWidget().showToaster(msg: data["User Added to block list"].toString());
+        CommonWidget()
+            .showToaster(msg: data["User Added to block list"].toString());
 
         //     .setPref(URLConstants.id, _followUnfolloemodel!.user![0].id!);
         // CommonService().setStoreKey(
@@ -141,6 +144,7 @@ class Search_screen_controller extends GetxController {
       print('Please try again');
     }
   }
+
   RxList<Data_followers>? FollowersData = RxList();
   RxList<Data_followers>? FollowingData = RxList();
 
@@ -184,6 +188,7 @@ class Search_screen_controller extends GetxController {
   Data_followers? is_following;
 
   RxBool comapre_loading = false.obs;
+
   compare_data() {
     comapre_loading(true);
     print("widget.search_user_data.id ${userInfoModel_email!.data![0].id}");
@@ -194,10 +199,12 @@ class Search_screen_controller extends GetxController {
     String id = userInfoModel_email!.data![0].id!;
 
     Data_followers? last_out = FollowersData!.firstWhereOrNull(
-          (element) => element.id == id,
+      (element) => element.id == id,
     );
     if (last_out == null) {
       print('no data found');
+      print('Followers list data $is_follower');
+
     } else {
       is_follower = last_out;
       print('Followers list data $is_follower');
@@ -205,13 +212,14 @@ class Search_screen_controller extends GetxController {
     }
 
     Data_followers? first_out = FollowingData!.firstWhereOrNull(
-          (element) => element.id == id,
+      (element) => element.id == id,
     );
     if (first_out == null) {
       print('no data found');
+      print('Following list data $is_following');
     } else {
       is_following = first_out;
-      print('Followers list data $is_following');
+      print('Following list data $is_following');
       comapre_loading(false);
     }
   }
@@ -220,7 +228,8 @@ class Search_screen_controller extends GetxController {
   UserInfoModel? userInfoModel_email;
   var getUSerModelList = UserInfoModel().obs;
 
-  Future<dynamic> CreatorgetUserInfo_Email({required String UserId}) async {
+  Future<dynamic> CreatorgetUserInfo_Email(
+     {required String UserId}) async {
     print('inside searche userinfo email----------');
     String url = (URLConstants.base_url +
         URLConstants.user_info_email_Api +
@@ -246,7 +255,6 @@ class Search_screen_controller extends GetxController {
             '2-2-2-2-2-2 Inside the Get UserInfo Controller Details ${userInfoModel_email!.data!.length}');
         isuserinfoLoading(false);
         // CommonWidget().showToaster(msg: data["success"].toString());
-
         return userInfoModel_email;
       } else {
         // CommonWidget().showToaster(msg: msg.toString());
@@ -261,8 +269,10 @@ class Search_screen_controller extends GetxController {
     }
   }
 
-  Future<dynamic> getUserInfo_social({required String UserId}) async {
+  Future<dynamic> getUserInfo_social(
+      { required String UserId}) async {
     print('inside searche userinfo social----------');
+    // showLoader(context);
     isuserinfoLoading(true);
     // String userId = CommonService().getStoreValue(keys:'id');
     // String id_user = await PreferenceManager().getPref(URLConstants.id);
@@ -292,6 +302,7 @@ class Search_screen_controller extends GetxController {
             '2-2-2-2-2-2 Inside the product Controller Details ${userInfoModel_email!.data!.length}');
         isuserinfoLoading(false);
         // CommonWidget().showToaster(msg: data["success"].toString());
+        // hideLoader(context);
         return userInfoModel_email;
       } else {
         // CommonWidget().showToaster(msg: msg.toString());
@@ -306,6 +317,69 @@ class Search_screen_controller extends GetxController {
     }
   }
 
+  RxBool apiLoading = false.obs;
+  followUnfollowModel? _followUnfolloemodel;
 
+  Future<dynamic> Follow_unfollow_api(
+      {required BuildContext context, required String follow_unfollow ,required user_social,required user_id }) async {
+    debugPrint('0-0-0-0-0-0-0 username');
+    showLoader(context);
+
+      apiLoading;
+    String id_user = await PreferenceManager().getPref(URLConstants.id);
+    String type_user = await PreferenceManager().getPref(URLConstants.type);
+    // print("second_id ${widget.search_user_data.id}");
+
+    Map data = {
+      'follower_id': id_user,
+      'followed_user_id': userInfoModel_email!.data![0].id,
+      'user_followUnfollow': follow_unfollow,
+      'id': userInfoModel_email!.data![0].id,
+      'type': type_user,
+    };
+    print(data);
+    // String body = json.encode(data);
+
+    var url = ("http://foxyserver.com/funky/api/followUnfollow.php");
+    print("url : $url");
+    print("body : $data");
+
+    var response = await http.post(
+      Uri.parse(url),
+      body: data,
+    );
+    print(response.body);
+    print(response.request);
+    print(response.statusCode);
+    // var final_data = jsonDecode(response.body);
+
+    // print('final data $final_data');
+    if (response.statusCode == 200) {
+      apiLoading(false);
+      var data = jsonDecode(response.body);
+      _followUnfolloemodel = followUnfollowModel.fromJson(data);
+      print(_followUnfolloemodel);
+      // print("loginModel!.user![0].id! ${_followUnfolloemodel!.user![0].id!}");
+      if (_followUnfolloemodel!.error == false) {
+        (user_social == ""
+            ? await CreatorgetUserInfo_Email(
+            UserId: user_id)
+            : await getUserInfo_social(
+            UserId:user_id));
+        await compare_data();
+        hideLoader(context);
+        // await PreferenceManager()
+        //     .setPref(URLConstants.id, _followUnfolloemodel!.user![0].id!);
+        // CommonService().setStoreKey(
+        //     setKey: 'type', setValue: loginModel!.user![0].type!.toString());
+        print(CommonService().getStoreValue(keys: 'type').toString());
+        // Get.to(kids_Email_verification());
+      } else {
+        print('Please try again');
+      }
+    } else {
+      print('Please try again');
+    }
+  }
 
 }

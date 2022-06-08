@@ -1,17 +1,15 @@
 
-import 'package:funky_project/Authentication/advertiser_signup/controller/advertiser_signup_controller.dart';
-import 'package:funky_project/homepage/controller/homepage_controller.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/bindings_interface.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
-
 import '../Authentication/advertiser_login/controller/advertiser_login_Controller.dart';
-import '../Authentication/creator_login/controller/creator_login_controller.dart';
+import '../Authentication/advertiser_signup/controller/advertiser_signup_controller.dart';
 import '../Authentication/creator_signup/controller/creator_signup_controller.dart';
 import '../Authentication/kids_login/controller/kids_login_controller.dart';
 import '../Authentication/kids_signup/controller/kids_signup_controller.dart';
 import '../Authentication/password_reset/controller/password_reset_controller.dart';
 import '../controller/controllers_class.dart';
+import '../homepage/controller/homepage_controller.dart';
 class Splash_Bindnig implements Bindings {
   @override
   void dependencies() {

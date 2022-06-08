@@ -1,19 +1,23 @@
 import 'dart:convert';
 
-import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+// import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:funky_project/Authentication/kids_login/ui/otp_screen.dart';
-import 'package:funky_project/Utils/toaster_widget.dart';
-import 'package:funky_project/dashboard/ui/dashboard_screen.dart';
-import 'package:funky_project/getx_pagination/binding_utils.dart';
+// import 'package:funky_project/Authentication/kids_login/ui/otp_screen.dart';
+// import 'package:funky_project/Utils/toaster_widget.dart';
+// import 'package:funky_project/dashboard/dashboard_screen.dart';
+// import 'package:funky_project/getx_pagination/binding_utils.dart';
 import 'package:get/get.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+// import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
-import 'package:twitter_login/twitter_login.dart';
+// import 'package:twitter_login/twitter_login.dart';
 
 import '../../../Utils/App_utils.dart';
+// import '../../../homepage/model/UserInfoModel.dart';
+// import '../../../sharePreference.dart';
+import '../../../Utils/toaster_widget.dart';
+import '../../../custom_widget/page_loader.dart';
 import '../../../homepage/model/UserInfoModel.dart';
 import '../../../sharePreference.dart';
 import '../../creator_login/controller/creator_login_controller.dart';
@@ -22,6 +26,8 @@ import '../../creator_signup/model/otpVerifyModel.dart';
 import '../model/parents_otp_model.dart';
 import '../ui/kids_email_verification.dart';
 import 'dart:convert' as convert;
+
+import '../ui/otp_screen.dart';
 
 class Kids_Login_screen_controller extends GetxController {
   final TextEditingController usernameController = TextEditingController();
@@ -43,6 +49,7 @@ class Kids_Login_screen_controller extends GetxController {
     //   print('0-0-0-0-0-0- SignIn Error :- ${e.toString()}');
     // }
     isLoginLoading(true);
+    showLoader(context);
     Map data = {
       'userName': usernameController.text,
       'password': passwordController.text,
@@ -80,14 +87,18 @@ class Kids_Login_screen_controller extends GetxController {
         // CommonService().setStoreKey(
         //     setKey: 'type', setValue: loginModel!.user![0].type!.toString());
         String n = await PreferenceManager().getPref(URLConstants.id);
+
         print(n.toString());
         print('/////////////////////////////////////////');
         Get.to(kids_Email_verification());
       } else {
+        hideLoader(context);
+        CommonWidget().showErrorToaster(msg: "Invalid Details");
+        print('Please try again');
         print('Please try again');
       }
     } else {
-      print('Please try again');
+
     }
   }
 

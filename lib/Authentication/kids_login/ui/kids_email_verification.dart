@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:funky_project/Authentication/kids_login/controller/kids_login_controller.dart';
+// import 'package:funky_project/Authentication/kids_login/controller/kids_login_controller.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
@@ -7,6 +7,7 @@ import '../../../Utils/asset_utils.dart';
 import '../../../Utils/custom_textfeild.dart';
 import '../../../custom_widget/common_buttons.dart';
 import '../../../getx_pagination/binding_utils.dart';
+import '../controller/kids_login_controller.dart';
 
 class kids_Email_verification extends StatefulWidget {
   const kids_Email_verification({Key? key}) : super(key: key);
@@ -52,60 +53,65 @@ class _kids_Email_verificationState extends State<kids_Email_verification> {
             ),
           ),
         ),
-        Scaffold(
-          resizeToAvoidBottomInset: false,
-          // extendBodyBehindAppBar: true,
-          appBar: AppBar(
-            centerTitle: true,
-            title: Text(
-              'Parent Verification',
-              style: TextStyle(fontSize: 16, fontFamily: 'PB',color: Colors.white),
+        GestureDetector(
+          onTap: (){
+            FocusScope.of(context).requestFocus(FocusNode());
+          },
+          child: Scaffold(
+            resizeToAvoidBottomInset: false,
+            // extendBodyBehindAppBar: true,
+            appBar: AppBar(
+              centerTitle: true,
+              title: Text(
+                'Parent Verification',
+                style: TextStyle(fontSize: 16, fontFamily: 'PB',color: Colors.white),
+              ),
+              backgroundColor: Colors.transparent,
             ),
             backgroundColor: Colors.transparent,
-          ),
-          backgroundColor: Colors.transparent,
-          body: Container(
-            width: screenwidth,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                SizedBox(height: 60,),
-                Container(
-                  margin: EdgeInsets.symmetric(horizontal: 86,vertical: 20),
-                  child: Image.asset(AssetUtils.logo,fit: BoxFit.cover,),
-                ),
-                Container(
-                  child: Text(
-                    'Enter Parents email',
-                    style: TextStyle(fontSize: 16, fontFamily: 'PB',color: Colors.white),
+            body: Container(
+              width: screenwidth,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  SizedBox(height: 60,),
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 86,vertical: 20),
+                    child: Image.asset(AssetUtils.logo,fit: BoxFit.cover,),
                   ),
-                ),
-                SizedBox(
-                  height: 41,
-                ),
-                SizedBox(
-                  height: 21,
-                ),
-                CommonTextFormField(
-                  controller: _kids_loginScreenController.parentEmailController,
-                  title: 'Email',
-                  labelText: 'Enter Email',
-                  image_path: AssetUtils.chat_icon,
-                ),
-                SizedBox(
-                  height: 50,
-                ),
-                common_button(
-                  onTap: (){
-                    _kids_loginScreenController.ParentEmailVerification(context);
-                  },
-                  backgroud_color: Colors.black,
-                  lable_text: 'Next',
-                  lable_text_color: Colors.white,
-                ),
+                  Container(
+                    child: Text(
+                      'Enter Parents email',
+                      style: TextStyle(fontSize: 16, fontFamily: 'PB',color: Colors.white),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 41,
+                  ),
+                  SizedBox(
+                    height: 21,
+                  ),
+                  CommonTextFormField(
+                    controller: _kids_loginScreenController.parentEmailController,
+                    title: 'Email',
+                    labelText: 'Enter Email',
+                    image_path: AssetUtils.chat_icon,
+                  ),
+                  SizedBox(
+                    height: 50,
+                  ),
+                  common_button(
+                    onTap: (){
+                      _kids_loginScreenController.ParentEmailVerification(context);
+                    },
+                    backgroud_color: Colors.black,
+                    lable_text: 'Next',
+                    lable_text_color: Colors.white,
+                  ),
 
-              ],
+                ],
+              ),
             ),
           ),
         )

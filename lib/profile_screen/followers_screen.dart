@@ -2,20 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:funky_project/Utils/colorUtils.dart';
-import 'package:funky_project/search_screen/search__screen_controller.dart';
-import 'package:funky_project/search_screen/search_screen_user_profile.dart';
+// import 'package:funky_project/Utils/colorUtils.dart';
+// import 'package:funky_project/search_screen/search__screen_controller.dart';
+// import 'package:funky_project/search_screen/search_screen_user_profile.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 import '../Utils/App_utils.dart';
 import '../Utils/asset_utils.dart';
+import '../Utils/colorUtils.dart';
 import '../Utils/custom_textfeild.dart';
 import '../homepage/model/Homepage_model.dart';
 
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
 
+import '../search_screen/search__screen_controller.dart';
 import '../sharePreference.dart';
 import 'model/followersModel.dart';
 

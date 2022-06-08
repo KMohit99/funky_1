@@ -82,6 +82,7 @@ class _Password_otp_verificationState extends State<Password_otp_verification> {
 
   @override
   Widget build(BuildContext context) {
+
     final seconds = myDuration.inSeconds.remainder(60);
     final screenwidth = MediaQuery.of(context).size.width;
     final screenheight = MediaQuery.of(context).size.height;
@@ -117,96 +118,101 @@ class _Password_otp_verificationState extends State<Password_otp_verification> {
             ),
           ),
         ),
-        Scaffold(
-          resizeToAvoidBottomInset: false,
-          // extendBodyBehindAppBar: true,
-          appBar: AppBar(
-            centerTitle: true,
-            title: Text(
-              'Forgot Password ?',
-              style: TextStyle(
-                  fontSize: 16, fontFamily: 'PR', color: Colors.white),
+        GestureDetector(
+          onTap: (){
+            FocusScope.of(context).requestFocus(FocusNode());
+          },
+          child: Scaffold(
+            resizeToAvoidBottomInset: false,
+            // extendBodyBehindAppBar: true,
+            appBar: AppBar(
+              centerTitle: true,
+              title: Text(
+                'Forgot Password ?',
+                style: TextStyle(
+                    fontSize: 16, fontFamily: 'PR', color: Colors.white),
+              ),
+              backgroundColor: Colors.transparent,
             ),
             backgroundColor: Colors.transparent,
-          ),
-          backgroundColor: Colors.transparent,
-          body: SingleChildScrollView(
-            physics: ClampingScrollPhysics(),
-            child: Container(
-              width: screenwidth,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Container(
-                    // color: Colors.red,
-                    margin: EdgeInsets.symmetric(horizontal: 86, vertical: 10),
-                    child: Image.asset(
-                      AssetUtils.logo,
-                      fit: BoxFit.cover,
+            body: SingleChildScrollView(
+              physics: ClampingScrollPhysics(),
+              child: Container(
+                width: screenwidth,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                      // color: Colors.red,
+                      margin: EdgeInsets.symmetric(horizontal: 86, vertical: 10),
+                      child: Image.asset(
+                        AssetUtils.logo,
+                        fit: BoxFit.cover,
+                      ),
                     ),
-                  ),
 
-                  Container(
-                    child: Text(
-                      'Enter OTP ',
-                      style: TextStyle(
-                          fontSize: 16, fontFamily: 'PB', color: Colors.white),
+                    Container(
+                      child: Text(
+                        'Enter OTP ',
+                        style: TextStyle(
+                            fontSize: 16, fontFamily: 'PB', color: Colors.white),
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 41,
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(left: 30, right: 30),
-                    child: PinPut(
-                      fieldsCount: 4,
-                      textStyle: const TextStyle(
-                          fontFamily: 'PR', fontSize: 25, color: Colors.black),
-                      eachFieldHeight: 60,
-                      eachFieldWidth: 60,
-                      eachFieldMargin: EdgeInsets.all(7),
-                      focusNode: _pinOTPFocus,
-                      controller: _pinOTPController,
-                      submittedFieldDecoration: pinOTPDecoration,
-                      selectedFieldDecoration: pinOTPDecoration,
-                      followingFieldDecoration: pinOTPDecoration2,
-                      pinAnimationType: PinAnimationType.rotation,
+                    SizedBox(
+                      height: 41,
                     ),
-                  ),
-                  const SizedBox(
-                    height: 35,
-                  ),
-                  Container(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            child: Text('$seconds', style: TextStyle(
-                                fontSize: 16, fontFamily: 'PB', color: Colors.white),),
-                          ),
-                          SizedBox(width: 10,),
-                          Image.asset(
-                            AssetUtils.timer_icon,
-                            width: 22,
-                            height: 20,
-                            fit: BoxFit.contain,
-                          ),
-                        ],
-                      )),
-                  SizedBox(height: 20,),
-                  common_button(
-                    onTap: () {
-                      _password_reset_controller.pass_reset_VerifyOtp(
-                          context: context,
-                          otp_controller: _pinOTPController.text);
-                      // _kids_loginScreenController.ParentEmailVerification(context);
-                    },
-                    backgroud_color: Colors.black,
-                    lable_text: 'Next',
-                    lable_text_color: Colors.white,
-                  ),
-                ],
+                    Container(
+                      margin: const EdgeInsets.only(left: 30, right: 30),
+                      child: PinPut(
+                        fieldsCount: 4,
+                        textStyle: const TextStyle(
+                            fontFamily: 'PR', fontSize: 25, color: Colors.black),
+                        eachFieldHeight: 60,
+                        eachFieldWidth: 60,
+                        eachFieldMargin: EdgeInsets.all(7),
+                        focusNode: _pinOTPFocus,
+                        controller: _pinOTPController,
+                        submittedFieldDecoration: pinOTPDecoration,
+                        selectedFieldDecoration: pinOTPDecoration,
+                        followingFieldDecoration: pinOTPDecoration2,
+                        pinAnimationType: PinAnimationType.rotation,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 35,
+                    ),
+                    Container(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              child: Text('$seconds', style: TextStyle(
+                                  fontSize: 16, fontFamily: 'PB', color: Colors.white),),
+                            ),
+                            SizedBox(width: 10,),
+                            Image.asset(
+                              AssetUtils.timer_icon,
+                              width: 22,
+                              height: 20,
+                              fit: BoxFit.contain,
+                            ),
+                          ],
+                        )),
+                    SizedBox(height: 20,),
+                    common_button(
+                      onTap: () {
+                        _password_reset_controller.pass_reset_VerifyOtp(
+                            context: context,
+                            otp_controller: _pinOTPController.text);
+                        // _kids_loginScreenController.ParentEmailVerification(context);
+                      },
+                      backgroud_color: Colors.black,
+                      lable_text: 'Next',
+                      lable_text_color: Colors.white,
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

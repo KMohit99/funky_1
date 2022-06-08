@@ -1,11 +1,13 @@
 import 'dart:convert';
+import 'dart:io'as Io;
 import 'dart:io';
+
 
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:funky_project/Authentication/creator_signup/model/countryModelclass.dart';
-import 'package:funky_project/controller/controllers_class.dart';
+// import 'package:funky_project/Authentication/creator_signup/model/countryModelclass.dart';
+// import 'package:funky_project/controller/controllers_class.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:image_picker/image_picker.dart';
@@ -16,6 +18,7 @@ import '../../../Utils/custom_textfeild.dart';
 import '../../../Utils/App_utils.dart';
 import '../../../custom_widget/common_buttons.dart';
 import '../controller/creator_signup_controller.dart';
+import '../model/countryModelclass.dart';
 
 class Creator_signup extends StatefulWidget {
   const Creator_signup({Key? key}) : super(key: key);
@@ -53,7 +56,13 @@ class _Creator_signupState extends State<Creator_signup> {
       imgFile = File(imgCamera!.path);
       _creator_signup_controller.photoBase64 =
           base64Encode(imgFile!.readAsBytesSync());
-      print(_creator_signup_controller.photoBase64);
+      print("imgFile! ${imgFile}");
+      // print(_creator_signup_controller.photoBase64);
+
+      final bytes = Io.File(imgCamera.path).readAsBytesSync();
+      _creator_signup_controller.img64 = base64Encode(bytes);
+      print(_creator_signup_controller.img64!.substring(0, 100));
+
     });
     Navigator.of(context).pop();
   }
@@ -65,6 +74,12 @@ class _Creator_signupState extends State<Creator_signup> {
       _creator_signup_controller.photoBase64 =
           base64Encode(imgFile!.readAsBytesSync());
       print(_creator_signup_controller.photoBase64);
+
+
+      final bytes = Io.File(imgGallery.path).readAsBytesSync();
+      _creator_signup_controller.img64 = base64Encode(bytes);
+      print(_creator_signup_controller.img64!.substring(0, 100));
+
     });
     Navigator.of(context).pop();
   }
@@ -388,7 +403,7 @@ class _Creator_signupState extends State<Creator_signup> {
                                         // stops: [0.1, 0.5, 0.7, 0.9],
                                         colors: [
                                           HexColor("#000000"),
-                                          HexColor("#000000"),
+                                          HexColor("#C12265"),
                                           HexColor("#C12265"),
                                           HexColor("#FFFFFF"),
                                         ],
@@ -506,7 +521,7 @@ class _Creator_signupState extends State<Creator_signup> {
                                                 style: TextStyle(
                                                   fontSize: 16,
                                                   fontFamily: 'PR',
-                                                  color: Colors.black,
+                                                  color: Colors.pink,
                                                 ),
                                                 overflow: TextOverflow.ellipsis,
                                               ),
@@ -544,8 +559,20 @@ class _Creator_signupState extends State<Creator_signup> {
                                     dropdownMaxHeight: 200,
                                     dropdownPadding: null,
                                     dropdownDecoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(24),
+                                      border: Border.all(
+                                          width: 1, color: Colors.white),
+                                      gradient: LinearGradient(
+                                        begin: Alignment.topLeft,
+                                        end: Alignment.bottomRight,
+                                        // stops: [0.1, 0.5, 0.7, 0.9],
+                                        colors: [
+                                          HexColor("#000000"),
+                                          HexColor("#C12265"),
+                                          HexColor("#C12265"),
+                                          HexColor("#FFFFFF"),
+                                        ],
+                                      ),
                                     ),
                                     dropdownElevation: 8,
                                     scrollbarRadius: const Radius.circular(40),

@@ -4,12 +4,14 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
-import 'package:funky_project/Utils/asset_utils.dart';
-import 'package:funky_project/Utils/colorUtils.dart';
+// import 'package:funky_project/Utils/asset_utils.dart';
+// import 'package:funky_project/Utils/colorUtils.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:pinput/pin_put/pin_put.dart';
 
+import '../../../Utils/asset_utils.dart';
+import '../../../Utils/colorUtils.dart';
 import '../../../Utils/custom_textfeild.dart';
 import '../../../custom_widget/common_buttons.dart';
 import 'security_checkup_controller.dart';

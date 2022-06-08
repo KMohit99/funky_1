@@ -1,18 +1,17 @@
 
-import 'package:funky_project/Authentication/advertiser_login/ui/advertiser_login_screen.dart';
-import 'package:funky_project/Authentication/age_verificationScreen.dart';
-import 'package:funky_project/Authentication/authentication_screen.dart';
-import 'package:funky_project/Authentication/kids_login/ui/kids_login_screen.dart';
-import 'package:funky_project/Authentication/creator_login/ui/Creator_login_screen.dart';
-import 'package:funky_project/Authentication/kids_signup/ui/kids_singup_screen.dart';
-import 'package:funky_project/homepage/ui/homepage_screen.dart';
 import 'package:get/route_manager.dart';
 
-
+import '../Authentication/advertiser_login/ui/advertiser_login_screen.dart';
 import '../Authentication/advertiser_signup/ui/advertiser_signup_screen.dart';
+import '../Authentication/age_verificationScreen.dart';
+import '../Authentication/authentication_screen.dart';
+import '../Authentication/creator_login/ui/Creator_login_screen.dart';
 import '../Authentication/creator_signup/ui/creator_signup.dart';
+import '../Authentication/kids_login/ui/kids_login_screen.dart';
+import '../Authentication/kids_signup/ui/kids_singup_screen.dart';
 import '../Authentication/password_reset/ui/email_send.dart';
 import '../Authentication/signup_option.dart';
+import '../homepage/ui/homepage_screen.dart';
 import '../splash_screen.dart';
 import 'Bindings_class.dart';
 import 'binding_utils.dart';
@@ -68,11 +67,11 @@ class AppPages {
       page: () => AdvertiserSignUpScreen(),
       binding: Advertiser_Signup_Binding(),
     ),
-    GetPage(
-      name: BindingUtils.homepageRoute,
-      page: () => HomePageScreen(),
-      binding: homePage_binding(),
-    ),
+    // GetPage(
+    //   name: BindingUtils.homepageRoute,
+    //   page: () => HomePageScreen(),
+    //   binding: homePage_binding(),
+    // ),
     GetPage(
       name: BindingUtils.passwordreset,
       page: () => sendEmail(),

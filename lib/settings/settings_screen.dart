@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:funky_project/Authentication/authentication_screen.dart';
-import 'package:funky_project/settings/copy_right.dart';
-import 'package:funky_project/settings/privacy_setting_screen.dart';
-import 'package:funky_project/settings/report_problem.dart';
-import 'package:funky_project/settings/security_login/security_login.dart';
-import 'package:funky_project/settings/terms_service.dart';
+import 'package:funky_new/settings/privacy_setting_screen.dart';
+import 'package:funky_new/settings/report_problem.dart';
+import 'package:funky_new/settings/security_login/security_login.dart';
+// import 'package:funky_project/settings/privacy_setting_screen.dart';
+// import 'package:funky_project/settings/report_problem.dart';
+// import 'package:funky_project/settings/security_login/security_login.dart';
 import 'package:get/get.dart';
 
-import '../Utils/App_utils.dart';
 import '../Utils/asset_utils.dart';
-import '../sharePreference.dart';
 import 'blockList_screen.dart';
 import 'community_guide.dart';
 import 'help_center.dart';
@@ -26,21 +24,37 @@ class SettingScreen extends StatefulWidget {
 }
 
 class _SettingScreenState extends State<SettingScreen> {
+  // List icon_list = [
+  //   AssetUtils.manage_icon,
+  //   AssetUtils.privacy_icon,
+  //   AssetUtils.security_icon,
+  //   AssetUtils.rewards_icon,
+  //   AssetUtils.kidsaccount_icon,
+  //   AssetUtils.invite_icon,
+  //   AssetUtils.notification_icon,
+  //   AssetUtils.report_icon,
+  //   AssetUtils.help_icon,
+  //   AssetUtils.community_icon,
+  //   AssetUtils.terms_service_icon,
+  //   AssetUtils.copyright_icon,
+  //   AssetUtils.copyright_icon,
+  //   AssetUtils.logout_icon,
+  // ];
   List icon_list = [
     AssetUtils.manage_icon,
-    AssetUtils.privacy_icon,
-    AssetUtils.security_icon,
-    AssetUtils.rewards_icon,
-    AssetUtils.kidsaccount_icon,
-    AssetUtils.invite_icon,
-    AssetUtils.notification_icon,
-    AssetUtils.report_icon,
-    AssetUtils.help_icon,
-    AssetUtils.community_icon,
-    AssetUtils.terms_service_icon,
-    AssetUtils.copyright_icon,
-    AssetUtils.copyright_icon,
-    AssetUtils.logout_icon,
+    AssetUtils.manage_icon,
+    AssetUtils.share_icon,
+    AssetUtils.share_icon3,
+    AssetUtils.hand_holding,
+    AssetUtils.security,
+    AssetUtils.file_alt,
+    AssetUtils.file_alt,
+    AssetUtils.file_alt,
+    AssetUtils.file_alt,
+    AssetUtils.file_alt,
+    AssetUtils.file_alt,
+    AssetUtils.file_alt,
+    AssetUtils.file_alt,
   ];
 
   List icon_name = [
@@ -94,7 +108,6 @@ class _SettingScreenState extends State<SettingScreen> {
             child: ListView.builder(
               itemCount: icon_list.length,
               shrinkWrap: true,
-              padding: EdgeInsets.only(bottom: 20),
               itemBuilder: (BuildContext context, int index) {
                 return GestureDetector(
                   onTap: () {
@@ -118,26 +131,16 @@ class _SettingScreenState extends State<SettingScreen> {
                                                     : (index == 9
                                                         ? Get.to(
                                                             CommunityGuide())
-                                                        : (index == 10
+                                                        : (index == 12
                                                             ? Get.to(
-                                                                TermsService())
-                                                            : (index == 11
-                                                                ? Get.to(
-                                                                    CopyRight())
-                                                                : (index == 12
-                                                                    ? Get.to(
-                                                                        BlockListScreen())
-                                                                    : (index ==
-                                                                            13
-                                                                        ? logout(
-                                                                            context)
-                                                                        : null)))))))))))));
+                                                                BlockListScreen())
+                                                            : null))))))))));
                   },
                   child: ListTile(
                     leading: IconButton(
                       onPressed: () {},
                       icon: Image.asset(
-                        AssetUtils.manage_icon,
+                        icon_list[index],
                         height: 15,
                         width: 15,
                       ),
@@ -163,20 +166,5 @@ class _SettingScreenState extends State<SettingScreen> {
         ],
       ),
     );
-  }
-
-  Future logout(BuildContext context) async {
-    String id_user = await PreferenceManager().getPref(URLConstants.id);
-    String type_user = await PreferenceManager().getPref(URLConstants.type);
-    print(id_user);
-    print(type_user);
-    print("-------------------------");
-    await PreferenceManager().setPref(URLConstants.id, '');
-    await PreferenceManager().setPref(URLConstants.type, '');
-    String id_user2 = await PreferenceManager().getPref(URLConstants.id);
-    String type_user3 = await PreferenceManager().getPref(URLConstants.type);
-    print(id_user2);
-    print(type_user3);
-    await Get.to(AuthenticationScreen());
   }
 }

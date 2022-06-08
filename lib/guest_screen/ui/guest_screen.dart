@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:funky_project/guest_screen/ui/video_class.dart';
+import 'package:funky_new/guest_screen/ui/video_class.dart';
 import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
 
@@ -68,7 +68,7 @@ class _GuestScreenState extends State<GuestScreen> {
                   itemBuilder: (BuildContext context, int index) {
                     return video_class(
                       url: homepageController
-                          .videoListModel!.data![index].uploadVideo!,
+                          .videoListModel!.data![index].user!.profileUrl !,
                       play: true,
                       songName: homepageController
                           .videoListModel!.data![index].musicName!,

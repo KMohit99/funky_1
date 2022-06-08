@@ -1,6 +1,6 @@
 {
-    "name": "funky_project",
-    "short_name": "funky_project",
+    "name": "funky_new",
+    "short_name": "funky_new",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

@@ -88,7 +88,7 @@ class AssetUtils {
   static const community_icon =root + 'Icon material-group.png';
   static const terms_service_icon = root + 'Icon awesome-file-alt-2.png';
   static const copyright_icon = root + 'Icon awesome-file-alt-2.png';
-  static const logout_icon = root + 'Icon open-account-logout.png';
+  static const logout_icon = root + 'Logout.png';
   static const add_account = root + 'Icon open-account-logout.png';
   static const share_icon3 = root + 'Icon awesome-share-1@3x.png';
   static const hand_holding = root + 'Icon awesome-hand-holding@3x.png';
@@ -100,4 +100,8 @@ class AssetUtils {
   static const plus_icon = root + 'Icon awesome-plus-circle@3x.png';
   static const minus_icon = root + 'Icon awesome-minus-circle@3x.png';
   static const friends_icon = root + 'Group 84@3x.png';
+
+
+  static const eye_open_icon = root + 'Icon ionic-ios-eye@3x.png';
+  static const eye_close_icon = root + 'Group 108@3x.png';
 }

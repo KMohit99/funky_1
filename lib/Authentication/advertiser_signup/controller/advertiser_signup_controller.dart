@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:funky_project/Authentication/kids_signup/ui/kids_otp_verification.dart';
+// import 'package:funky_project/Authentication/kids_signup/ui/kids_otp_verification.dart';
 import 'package:get/get.dart';
 import 'dart:convert';
 
@@ -13,7 +13,8 @@ import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
 import '../../../Utils/App_utils.dart';
 import '../../../Utils/toaster_widget.dart';
-import '../../../dashboard/ui/dashboard_screen.dart';
+import '../../../dashboard/dashboard_screen.dart';
+import '../../creator_login/controller/creator_login_controller.dart';
 import '../../creator_login/model/creator_loginModel.dart';
 import 'package:http/http.dart' as http;
 
@@ -38,6 +39,9 @@ class Advertiser_signup_controller extends GetxController {
   LoginModel? loginModel;
   String selected_gender = 'male';
 
+  final Creator_Login_screen_controller _creator_login_screen_controller =
+  Get.put(Creator_Login_screen_controller(),
+      tag: Creator_Login_screen_controller().toString());
   Future<dynamic> Advertiser_signup(BuildContext context) async {
     debugPrint('0-0-0-0-0-0-0 username');
     // try {
@@ -54,7 +58,8 @@ class Advertiser_signup_controller extends GetxController {
       'password': password_controller.text,
       'gender': selected_gender,
       'referral_code': reffralCode_controller.text,
-      'image': photoBase64!,
+      // 'image': photoBase64!,
+      'image': img64!.substring(0, 100),
       'countryCode': countryCode_controller.text,
       'about': aboutMe_controller.text,
       'type': 'advertisor',
@@ -84,6 +89,8 @@ class Advertiser_signup_controller extends GetxController {
       print(loginModel);
       if (loginModel!.error == false) {
         CommonWidget().showToaster(msg: 'Signup successfull');
+        await _creator_login_screen_controller.CreatorgetUserInfo_Email(UserId: loginModel!.user![0].id!);
+
         await Get.to(Dashboard());
         // await KidsSendOtp(context);
         // Get.to(Dashboard());
@@ -96,6 +103,7 @@ class Advertiser_signup_controller extends GetxController {
   }
 
   String? photoBase64;
+  String? img64;
 
   RxBool isotpVerifyLoading = false.obs;
   otpVerifyModel? otpverifyModel;

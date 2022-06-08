@@ -3,14 +3,15 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:funky_project/Authentication/authentication_screen.dart';
+// import 'package:funky_project/Authentication/authentication_screen.dart';
 import 'package:get/get.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
 import '../../../Utils/App_utils.dart';
 import '../../../Utils/toaster_widget.dart';
-import '../../../dashboard/ui/dashboard_screen.dart';
+import '../../../dashboard/dashboard_screen.dart';
+import '../../authentication_screen.dart';
 import '../../creator_login/controller/creator_login_controller.dart';
 import '../../creator_login/model/creator_loginModel.dart';
 import 'package:http/http.dart' as http;
@@ -57,12 +58,13 @@ class Creator_signup_controller extends GetxController {
       'gender': selected_gender,
       'location': selectedcountry!.location.toString(),
       'referral_code': reffralCode_controller.text,
-      'image': photoBase64!,
+      // 'image': photoBase64!,
+      'image': img64!.substring(0, 100),
       'countryCode': countryCode_controller.text,
       'about': aboutMe_controller.text,
       'type': 'creator',
     };
-    print(data);
+    // print(data);
     // String body = json.encode(data);
 
     var url = ("http://foxyserver.com/funky/api/signup.php");
@@ -73,7 +75,7 @@ class Creator_signup_controller extends GetxController {
       Uri.parse(url),
       body: data,
     );
-    print(response.body);
+    // print(response.body);
     print(response.request);
     print(response.statusCode);
     // var final_data = jsonDecode(response.body);
@@ -124,7 +126,7 @@ class Creator_signup_controller extends GetxController {
               .userInfoModel_email!.data![0].profileUrl!.isNotEmpty
           ? _creator_login_screen_controller
               .userInfoModel_email!.data![0].profileUrl!.toString()
-          : photoBase64),
+          : img64!.substring(0, 100)),
       // 'countryCode': countryCode_controller.text,
       'about': aboutMe_controller.text,
       'type': usertype,
@@ -168,6 +170,7 @@ class Creator_signup_controller extends GetxController {
   RxBool isotpLoading = false.obs;
   parentsOtpModel? otpsendModel;
   String? photoBase64;
+  String? img64;
 
   Future<dynamic> CreatorsendOtp(BuildContext context) async {
     debugPrint('0-0-0-0-0-0-0 username');
@@ -245,7 +248,9 @@ class Creator_signup_controller extends GetxController {
       print(otpverifyModel);
       if (otpverifyModel!.error == false) {
         CommonWidget().showToaster(msg: 'Signed Up');
-        Get.to(Dashboard());
+        await _creator_login_screen_controller.CreatorgetUserInfo_Email(UserId: loginModel!.user![0].id!);
+
+        await Get.to(Dashboard());
       } else {
         print('Please try again');
         CommonWidget().showErrorToaster(msg: 'Enter valid Otp');

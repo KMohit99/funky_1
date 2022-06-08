@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:funky_project/Utils/asset_utils.dart';
 
 class CommonTextFormField extends StatelessWidget {
   final String title;
@@ -14,6 +13,7 @@ class CommonTextFormField extends StatelessWidget {
   final int? maxLines;
   final double? height;
   final GestureTapCallback? tap;
+  final GestureTapCallback? onpasswordTap;
   final bool? readOnly;
   final TextAlign? align;
   FormFieldValidator<String>? validator;
@@ -40,7 +40,7 @@ class CommonTextFormField extends StatelessWidget {
     this.align,
     this.validator,
     this.enabled,
-    this.height,
+    this.height, this.onpasswordTap,
   }) : super(key: key);
 
   @override
@@ -116,10 +116,10 @@ class CommonTextFormField extends StatelessWidget {
                     icon: Image.asset(
                       image_path,
                       color: Colors.black,
-                      height: 15,
-                      width: 15,
+                      height: 20,
+                      width: 20,
                     ),
-                    onPressed: () {},
+                    onPressed: onpasswordTap,
                   ),
                 ),
               ),
@@ -129,7 +129,7 @@ class CommonTextFormField extends StatelessWidget {
                 color: Colors.black,
               ),
               controller: controller,
-              keyboardType: keyboardType ?? TextInputType.multiline,
+              keyboardType: keyboardType ?? TextInputType.text,
             ),
           ),
         ],

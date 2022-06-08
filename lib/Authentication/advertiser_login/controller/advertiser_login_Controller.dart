@@ -1,24 +1,32 @@
 import 'dart:convert';
 
-import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+// import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:funky_project/Authentication/creator_login/model/creator_loginModel.dart';
-import 'package:funky_project/dashboard/ui/dashboard_screen.dart';
-import 'package:funky_project/getx_pagination/binding_utils.dart';
+// import 'package:funky_project/Authentication/creator_login/model/creator_loginModel.dart';
+// import 'package:funky_project/dashboard/dashboard_screen.dart';
+// import 'package:funky_project/getx_pagination/binding_utils.dart';
 import 'package:get/get.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+// import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
-import 'package:twitter_login/twitter_login.dart';
+// import 'package:twitter_login/twitter_login.dart';
 
 import '../../../Utils/App_utils.dart';
+import '../../../Utils/toaster_widget.dart';
+import '../../../custom_widget/page_loader.dart';
+import '../../../dashboard/dashboard_screen.dart';
+import '../../creator_login/controller/creator_login_controller.dart';
+import '../../creator_login/model/creator_loginModel.dart';
 
 class Advertiser_Login_screen_controller extends GetxController {
   RxBool isLoading = false.obs;
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   LoginModel? loginModel;
+  final Creator_Login_screen_controller _creator_login_screen_controller =
+  Get.put(Creator_Login_screen_controller(),
+      tag: Creator_Login_screen_controller().toString());
 
   Future<dynamic> checkLogin({required BuildContext context ,required String login_type }) async {
     debugPrint('0-0-0-0-0-0-0 username');
@@ -28,6 +36,7 @@ class Advertiser_Login_screen_controller extends GetxController {
     //   print('0-0-0-0-0-0- SignIn Error :- ${e.toString()}');
     // }
     isLoading(true);
+    showLoader(context);
     Map data = {
       'userName': usernameController.text,
       'password': passwordController.text,
@@ -64,12 +73,15 @@ class Advertiser_Login_screen_controller extends GetxController {
           toastLength: Toast.LENGTH_LONG,
           gravity: ToastGravity.BOTTOM,
         );
-        Get.to(Dashboard());
+        await _creator_login_screen_controller.CreatorgetUserInfo_Email(UserId: loginModel!.user![0].id!);
+
+        await Get.to(Dashboard());
       }
       else{
         print('Please try again');
       }
     } else {
+
       print('Please try again');
     }
 

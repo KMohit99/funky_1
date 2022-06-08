@@ -1,18 +1,21 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:funky_project/Utils/asset_utils.dart';
-import 'package:funky_project/homepage/controller/homepage_controller.dart';
+// import 'package:funky_project/Utils/asset_utils.dart';
+// import 'package:funky_project/homepage/controller/homepage_controller.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 // import 'package:video_player/video_player.dart';
 
+import '../../Utils/asset_utils.dart';
+import '../../Utils/custom_appbar.dart';
 import '../../drawerScreen.dart';
+import '../controller/homepage_controller.dart';
 import 'better_video.dart';
 import 'common_video_class.dart';
 
 class HomePageScreen extends StatefulWidget {
-  const HomePageScreen({Key? key}) : super(key: key);
+  const HomePageScreen({Key? key,}) : super(key: key);
 
   @override
   State<HomePageScreen> createState() => _HomePageScreenState();
@@ -55,84 +58,12 @@ class _HomePageScreenState extends State<HomePageScreen> {
         key: _scaffoldKey,
         backgroundColor: Colors.transparent,
         extendBodyBehindAppBar: true,
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          title: Text(
-            'Dashboard',
-            style:
-                TextStyle(fontSize: 16, color: Colors.white, fontFamily: 'PB'),
-          ),
-          centerTitle: true,
-          actions: [
-            Row(
-              children: [
-                InkWell(
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                        right: 20.0, top: 0.0, bottom: 5.0),
-                    child: ClipRRect(
-                      child: Image.asset(
-                        AssetUtils.noti_icon,
-                        height: 20.0,
-                        width: 20.0,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                ),
-                InkWell(
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                        right: 20.0, top: 0.0, bottom: 5.0),
-                    child: ClipRRect(
-                      child: Image.asset(
-                        AssetUtils.chat_icon,
-                        height: 20.0,
-                        width: 20.0,
-                        fit: BoxFit.contain,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            )
-          ],
-          leadingWidth: 100,
-          leading: Row(
-            children: [
-              Container(
-                margin: EdgeInsets.only(left: 16, top: 0, bottom: 0),
-                child: IconButton(
-                    padding: EdgeInsets.zero,
-                    onPressed: () {
-                      print('oject');
-                      _scaffoldKey.currentState!.openDrawer();
-                    },
-                    icon: (Image.asset(
-                      AssetUtils.drawer_icon,
-                      color: Colors.white,
-                      height: 12.0,
-                      width: 19.0,
-                      fit: BoxFit.contain,
-                    ))),
-              ),
-              Expanded(
-                child: Container(
-                  margin: EdgeInsets.only(left: 18, top: 0, bottom: 0),
-                  child: IconButton(
-                      padding: EdgeInsets.zero,
-                      onPressed: () {},
-                      icon: (Image.asset(
-                        AssetUtils.user_icon,
-                        color: Colors.white,
-                        height: 20.0,
-                        width: 20.0,
-                        fit: BoxFit.contain,
-                      ))),
-                ),
-              ),
-            ],
-          ),
+        drawer: DrawerScreen(),
+        appBar: CustomAppbar(
+          lable_tex: 'Dashboard',
+          ondrawertap:(){
+            _scaffoldKey.currentState!.openDrawer();
+          },
         ),
         body: Obx(() => (homepageController.isVideoLoading != true &&
                 homepageController.videoListModel != null)
@@ -155,6 +86,12 @@ class _HomePageScreenState extends State<HomePageScreen> {
                         play: true,
                         songName: homepageController
                             .videoListModel!.data![index].musicName!,
+                              image_url : (homepageController
+                                  .videoListModel!.data![index].user!.profileUrl ==
+                                  null
+                                  ? ''
+                                  : homepageController
+                                  .videoListModel!.data![index].user!.profileUrl!),
                         singerName: (homepageController
                                     .videoListModel!.data![index].userName ==
                                 null

@@ -54,7 +54,6 @@ class URLConstants{
   static const searchListApi = "search_users.php";
   static const blockListApi = "user-block-list.php";
   static const postListApi = "postList.php";
-  static const postApi = "post.php";
   static String id = "id";
   static String type = "type";
 

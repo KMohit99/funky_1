@@ -3,15 +3,20 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:funky_project/Utils/asset_utils.dart';
-import 'package:funky_project/profile_screen/edit_profile_screen.dart';
-import 'package:funky_project/search_screen/searchModel.dart';
-import 'package:funky_project/search_screen/search__screen_controller.dart';
+import 'package:funky_new/custom_widget/page_loader.dart';
+import 'package:funky_new/search_screen/searchModel.dart';
+import 'package:funky_new/search_screen/search__screen_controller.dart';
+
+// import 'package:funky_project/Utils/asset_utils.dart';
+// import 'package:funky_project/profile_screen/edit_profile_screen.dart';
+// import 'package:funky_project/search_screen/searchModel.dart';
+// import 'package:funky_project/search_screen/search__screen_controller.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 import '../Authentication/creator_login/controller/creator_login_controller.dart';
 import '../Utils/App_utils.dart';
+import '../Utils/asset_utils.dart';
 import '../Utils/colorUtils.dart';
 import '../homepage/model/UserInfoModel.dart';
 import 'package:http/http.dart' as http;
@@ -20,6 +25,8 @@ import 'dart:convert' as convert;
 import '../profile_screen/model/followUnfollowModel.dart';
 import '../profile_screen/model/followersModel.dart';
 import '../sharePreference.dart';
+import 'Followers_scren.dart';
+import 'Following_scren.dart';
 
 class SearchUserProfile extends StatefulWidget {
   final Data_searchApi search_user_data;
@@ -193,12 +200,9 @@ class _SearchUserProfileState extends State<SearchUserProfile>
         //         ))),
         //   ),
         // ),
-        body: Obx(() => _search_screen_controller.isSearchLoading.value == true
-            ? Container(
-                height: 50,
-                color: Colors.grey,
-                child: CircularProgressIndicator(),
-              )
+        body: Obx(() => _search_screen_controller.isuserinfoLoading.value ==
+                true
+            ? Center(child: CircularProgressIndicator(color: HexColor(CommonColor.pinkFont),))
             : NestedScrollView(
                 headerSliverBuilder:
                     (BuildContext context, bool innerBoxIsScrolled) {
@@ -285,7 +289,7 @@ class _SearchUserProfileState extends State<SearchUserProfile>
                                                 child: AlertDialog(
                                                     insetPadding:
                                                         EdgeInsets.only(
-                                                            bottom: 600,
+                                                            bottom: 500,
                                                             left: 150),
                                                     backgroundColor:
                                                         Colors.transparent,
@@ -529,7 +533,12 @@ class _SearchUserProfileState extends State<SearchUserProfile>
                                                   height: 20,
                                                   width: 20,
                                                 ),
-                                                onPressed: () {}),
+                                                onPressed: () {
+                                                  Get.to(SearchUserFollowrs(
+                                                    searchUserid: widget
+                                                        .search_user_data.id!,
+                                                  ));
+                                                }),
                                             Text(
                                               '${_search_screen_controller.userInfoModel_email!.data![0].followerNumber}',
                                               style: TextStyle(
@@ -553,7 +562,12 @@ class _SearchUserProfileState extends State<SearchUserProfile>
                                                   height: 20,
                                                   width: 20,
                                                 ),
-                                                onPressed: () {}),
+                                                onPressed: () {
+                                                  Get.to(searchUserFollowing(
+                                                    searchUserid: widget
+                                                        .search_user_data.id!,
+                                                  ));
+                                                }),
                                             Text(
                                               '${_search_screen_controller.userInfoModel_email!.data![0].followingNumber}',
                                               style: TextStyle(
@@ -645,8 +659,12 @@ class _SearchUserProfileState extends State<SearchUserProfile>
                                         children: [
                                           GestureDetector(
                                             onTap: () {
-                                              Follow_unfollow_api(
+                                              _search_screen_controller.Follow_unfollow_api(
                                                   context: context,
+                                                  user_id: widget
+                                                      .search_user_data.id,
+                                                  user_social: widget
+                                                      .search_user_data.type,
                                                   follow_unfollow: (_search_screen_controller
                                                                   .is_follower !=
                                                               null &&
@@ -664,9 +682,7 @@ class _SearchUserProfileState extends State<SearchUserProfile>
                                                           : (_search_screen_controller
                                                                           .is_follower ==
                                                                       null &&
-                                                                  _search_screen_controller
-                                                                          .is_following !=
-                                                                      null
+                                                                  _search_screen_controller.is_following != null
                                                               ? "unfollow"
                                                               : 'follow'))));
                                             },
@@ -707,35 +723,37 @@ class _SearchUserProfileState extends State<SearchUserProfile>
                                                       horizontal: 15),
                                                   child: Text(
                                                     (_search_screen_controller
-                                                                .comapre_loading
-                                                                .value !=
-                                                            true
-                                                        ? (_search_screen_controller
+                                                                    .is_follower !=
+                                                                null &&
+                                                            _search_screen_controller
+                                                                    .is_following !=
+                                                                null
+                                                        ? 'Following'
+                                                        : (_search_screen_controller
                                                                         .is_follower !=
                                                                     null &&
                                                                 _search_screen_controller
-                                                                        .is_following !=
+                                                                        .is_following ==
                                                                     null
-                                                            ? 'Following'
+                                                            ? 'Follow'
                                                             : (_search_screen_controller
-                                                                            .is_follower !=
+                                                                            .is_follower ==
                                                                         null &&
                                                                     _search_screen_controller
-                                                                            .is_following ==
+                                                                            .is_following !=
                                                                         null
-                                                                ? 'Follow'
+                                                                ? "Following"
                                                                 : (_search_screen_controller.is_follower ==
                                                                             null &&
-                                                                        _search_screen_controller.is_following !=
+                                                                        _search_screen_controller.is_following ==
                                                                             null
-                                                                    ? "Following"
+                                                                    ? 'Follow'
                                                                     : (_search_screen_controller.is_follower ==
                                                                                 null &&
-                                                                            _search_screen_controller.is_following ==
+                                                                            _search_screen_controller.is_following !=
                                                                                 null
-                                                                        ? 'Follow'
-                                                                        : ' '))))
-                                                        : ' Follow'),
+                                                                        ? 'Following'
+                                                                        : ''))))),
                                                     style: TextStyle(
                                                         color: (_search_screen_controller
                                                                         .is_follower !=
@@ -1682,71 +1700,6 @@ class _SearchUserProfileState extends State<SearchUserProfile>
       mainAxisSpacing: 4.0,
       crossAxisSpacing: 4.0,
     );
-  }
-
-  bool apiLoading = false;
-  followUnfollowModel? _followUnfolloemodel;
-
-  Future<dynamic> Follow_unfollow_api(
-      {required BuildContext context, required String follow_unfollow}) async {
-    debugPrint('0-0-0-0-0-0-0 username');
-    apiLoading;
-    String id_user = await PreferenceManager().getPref(URLConstants.id);
-    String type_user = await PreferenceManager().getPref(URLConstants.type);
-    print("second_id ${widget.search_user_data.id}");
-
-    Map data = {
-      'follower_id': id_user,
-      'followed_user_id':
-          _search_screen_controller.userInfoModel_email!.data![0].id,
-      'user_followUnfollow': follow_unfollow,
-      'id': _search_screen_controller.userInfoModel_email!.data![0].id,
-      'type': type_user,
-    };
-    print(data);
-    // String body = json.encode(data);
-
-    var url = ("http://foxyserver.com/funky/api/followUnfollow.php");
-    print("url : $url");
-    print("body : $data");
-
-    var response = await http.post(
-      Uri.parse(url),
-      body: data,
-    );
-    print(response.body);
-    print(response.request);
-    print(response.statusCode);
-    // var final_data = jsonDecode(response.body);
-
-    // print('final data $final_data');
-
-    if (response.statusCode == 200) {
-      apiLoading == false;
-      var data = jsonDecode(response.body);
-      _followUnfolloemodel = followUnfollowModel.fromJson(data);
-      print(_followUnfolloemodel);
-      // print("loginModel!.user![0].id! ${_followUnfolloemodel!.user![0].id!}");
-      if (_followUnfolloemodel!.error == false) {
-        await _search_screen_controller.compare_data();
-        (widget.search_user_data.socialType == ""
-            ? await _search_screen_controller.CreatorgetUserInfo_Email(
-                UserId: widget.search_user_data.id!)
-            : await _search_screen_controller.getUserInfo_social(
-                UserId: widget.search_user_data.id!));
-        setState(() {});
-        // await PreferenceManager()
-        //     .setPref(URLConstants.id, _followUnfolloemodel!.user![0].id!);
-        // CommonService().setStoreKey(
-        //     setKey: 'type', setValue: loginModel!.user![0].type!.toString());
-        print(CommonService().getStoreValue(keys: 'type').toString());
-        // Get.to(kids_Email_verification());
-      } else {
-        print('Please try again');
-      }
-    } else {
-      print('Please try again');
-    }
   }
 
   Future<dynamic> getAllFollowersList() async {

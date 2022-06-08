@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:funky_project/Utils/asset_utils.dart';
-import 'package:funky_project/Utils/colorUtils.dart';
+
+import '../../../Utils/asset_utils.dart';
+import '../../../Utils/colorUtils.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class PrivcacyScreen extends StatefulWidget {

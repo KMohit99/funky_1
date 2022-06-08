@@ -1,12 +1,13 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:funky_project/getx_pagination/binding_utils.dart';
+// import 'package:funky_project/getx_pagination/binding_utils.dart';
 import 'package:get/get.dart';
 
 import '../../../Utils/App_utils.dart';
 import '../../../Utils/toaster_widget.dart';
-import '../../../dashboard/ui/dashboard_screen.dart';
+// import '../../../dashboard/dashboard_screen.dart';
+import '../../../getx_pagination/binding_utils.dart';
 import '../../creator_signup/model/otpVerifyModel.dart';
 import '../../kids_login/model/parents_otp_model.dart';
 import 'package:http/http.dart' as http;
@@ -18,7 +19,7 @@ import '../ui/password_reset_otp_veri.dart';
 class password_reset_controller extends GetxController {
 
   RxBool isotpLoading = false.obs;
-  forgot_passwordModel? _forgot_passwordModel;
+  forgot_passwordModel? Forgot_passwordModel;
   TextEditingController email_controller = new TextEditingController();
 
 
@@ -51,9 +52,9 @@ class password_reset_controller extends GetxController {
     if (response.statusCode == 200 ) {
       isotpLoading(false);
       var data = jsonDecode(response.body);
-      _forgot_passwordModel = forgot_passwordModel.fromJson(data);
+      Forgot_passwordModel = forgot_passwordModel.fromJson(data);
       // print(loginModel);
-      if(_forgot_passwordModel!.error == false){
+      if(Forgot_passwordModel!.error == false){
         CommonWidget().showToaster(msg: 'Enter Otp');
 
       }
@@ -121,7 +122,7 @@ class password_reset_controller extends GetxController {
     isotpVerifyLoading(true);
     Map data = {
       'email': email_controller.text,
-      'id': _forgot_passwordModel!.user![0].id!,
+      'id': Forgot_passwordModel!.user![0].id!,
       'password': reset_password_controller.text,
     };
     print(data);
